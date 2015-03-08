@@ -4,23 +4,27 @@ package com.sao.ext.bean;
  * Created by navia on 2015/3/1.
  */
 public class User {
-    private int xid;
+    private int id;
     private String name;
+    private String email;
+    private String phone;
 
     public User() {
     }
 
-    public User(int xid, String name) {
-        this.xid = xid;
+    public User(int id, String name, String email, String phone) {
+        this.id = id;
         this.name = name;
+        this.email = email;
+        this.phone = phone;
     }
 
-    public int getXid() {
-        return xid;
+    public int getId() {
+        return id;
     }
 
-    public void setXid(int xid) {
-        this.xid = xid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,5 +33,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

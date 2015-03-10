@@ -60,4 +60,30 @@ public class TestController {
     public String getUsers(){
         return JSON.toJSONString(users);
     }
+
+
+
+    @RequestMapping(value = "/uread", method = RequestMethod.GET)
+    @ResponseBody
+    public String uread(){
+        return JSON.toJSONString(users);
+    }
+
+    @RequestMapping(value = "/uadd", method = RequestMethod.POST)
+    @ResponseBody
+    public String uadd(){
+        return null;
+    }
+
+    @RequestMapping(value = "/uupdate", method = RequestMethod.POST)
+    @ResponseBody
+    public String uupdate(){
+        return null;
+    }
+
+    @RequestMapping(value = "/udestroy", method = RequestMethod.POST)
+    @ResponseBody
+    public String udestroy(){
+        return null;
+    }
 }

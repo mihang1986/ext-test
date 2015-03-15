@@ -3,11 +3,11 @@ package com.sao.ext.controller;
 import com.alibaba.fastjson.JSON;
 import com.sao.ext.bean.Student;
 import com.sao.ext.bean.User;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +22,12 @@ public class TestController {
     private static List<User> users = new ArrayList<User>();
 
     static{
-        users.add(new User(1, "Lisa", "lisa@simpsons.com", "555-111-1224"));
-        users.add(new User(2, "Bart", "bart@simpsons.com", "555-111-1224"));
-        users.add(new User(3, "Homer", "home@simpsons.com", "555-111-1224"));
-        users.add(new User(4, "Marge", "marge@simpsons.com", "555-111-1224"));
+        for(int i=1,imax=10; i!=imax; i++) {
+            users.add(new User(i*10 + 1, "Lisa", "lisa@simpsons.com", "555-111-1224"));
+            users.add(new User(i*10 + 2, "Bart", "bart@simpsons.com", "555-111-1224"));
+            users.add(new User(i*10 + 3, "Homer", "home@simpsons.com", "555-111-1224"));
+            users.add(new User(i*10 + 4, "Marge", "marge@simpsons.com", "555-111-1224"));
+        }
     }
 
     @RequestMapping(value = "/json1", method = RequestMethod.GET)
@@ -84,6 +86,13 @@ public class TestController {
     @RequestMapping(value = "/udestroy", method = RequestMethod.POST)
     @ResponseBody
     public String udestroy(){
+        //Student s = new Student()
         return null;
+    }
+
+    @RequestMapping(value = "/valid", method = RequestMethod.POST)
+    @ResponseBody
+    public String valid(){
+        return "false";
     }
 }

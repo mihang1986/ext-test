@@ -50,8 +50,14 @@
               alias: 'widget.user_list',
               initComponent: function(){
                   Ext.apply(this, {
+                      selType: "checkboxmodel", // 配置用什么类型 比如选择的是checkboxmodel, 那么下面的selModel就要用Ext.selection.CheckboxModel的配置项
+                      selModel: {
+                          injectCheckbox: 0,    // 定义选择框的列位置
+                          mode: "MULTI",     //"SINGLE"/"SIMPLE"/"MULTI"
+                          checkOnly: true     //只能通过checkbox选择
+                      },
                       columns: {
-                          defaults: {flex: 1},
+                          //defaults: {flex: 1},
                           items: [{
                               text: 'ID',
                               dataIndex: 'id'
@@ -60,7 +66,8 @@
                               dataIndex: 'name'
                           },{
                               text: '邮箱',
-                              dataIndex: 'email'
+                              dataIndex: 'email',
+                              flex: 1
                           },{
                               text: '电话',
                               dataIndex: 'phone'
@@ -73,7 +80,14 @@
                               text: '添加',
                               itemId: 'add',
                               handler : function(btn){
-                                  Ext.widget('user_edit', {title: btn.getText()}).show();
+                                  var x = Ext.widget('user_edit', {title: btn.getText()}).show();
+                                  //x.down()
+                                  //Ext.getCmp("xxx").setVisible(false);
+                                  x.down("form").queryById("xxx").setDisabled(true);
+                                  x.down("form").getForm().loadRecord(Ext.create("User", {
+                                      name : "fdsafasd",
+                                      email : "fdsafa@fdas.com"
+                                  }));
                               }
                           },'-',{
                               text: '删除',
@@ -91,7 +105,7 @@
                                   var win = Ext.widget('user_edit', {title: btn.getText()});
                                   var record = btn.up('user_list').getSelectionModel().getLastSelected();
                                   win.down('form').getForm().loadRecord(record);
-                                  win.show();
+                                  win.show("#xxx").setDisabled(true);
                               }
                           }]
                       },{
@@ -135,61 +149,7 @@
                       resizable: false,
                       items: {
                           xtype: 'form',
-                          margin: 5,
-                          frame: true,
-                          fieldDefaults: {
-                              allowBlank: false,
-                              anchor: '100%',
-                              labelAlign: 'right',
-                              labelWidth: 40
-                          },
-                          items: [{
-                              xtype: 'textfield',
-                              name: 'name',
-                              fieldLabel: '姓名'
-                          },{
-                              xtype: 'textfield',
-                              name: 'email',
-                              fieldLabel: '邮箱'
-                          },{
-                              xtype: 'textfield',
-                              fieldLabel: '电话',
-                              name: 'phone'
-                          }]
-                      },
-                      buttonAlign: 'center',
-                      buttons: [{
-                          text: '保存',
-                          itemId: 'save',
-                          handler : function(btn){
-                              var myMask = new Ext.LoadMask(btn.up("user_edit"), {msg:"Please wait..."});
-                              myMask.show();
-                              /*var me = this;
-                              var win = btn.up('window');
-                              var form = win.down('form').getForm();
-                              if(form.isValid()){
-                                  var record = form.getRecord();
-                                  if(record){
-                                      record.beginEdit();
-                                      record.set(form.getValues());
-                                      record.endEdit();
-                                      //record.commit();
-                                  }else{
-                                      record = Ext.create("User", form.getValues());
-                                      record.setDirty();
-                                      store.insert(0, record);
-                                      //record.commit();
-                                  }
-                                  win.close();
-                              }*/
-                          }
-                      },{
-                          text: '取消',
-                          itemId: 'cancel',
-                          handler : function(btn){
-                              btn.up('window').close();
-                          }
-                      }]
+
                   });
                   this.callParent(arguments);
               }
